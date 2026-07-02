@@ -7,6 +7,7 @@ Run on https://killercoda.com/playgrounds/scenario/ubuntu
 **Required software (free):**
 - GoPhish (single Go binary)
 - `curl`, `unzip`
+- `docker.io` (for the MailHog SMTP sink in Step 4)
 
 ---
 
@@ -49,6 +50,7 @@ In the UI:
 ## Step 4 — Spin up a safe SMTP sink
 
 ```bash
+apt install -y docker.io && systemctl start docker
 docker run -d -p 1025:1025 -p 8025:8025 mailhog/mailhog
 ```
 

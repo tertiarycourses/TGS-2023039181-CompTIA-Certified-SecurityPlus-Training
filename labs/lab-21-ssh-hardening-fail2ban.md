@@ -34,7 +34,7 @@ chmod 600 ~/.ssh/authorized_keys
 
 ```bash
 cat > /etc/ssh/sshd_config.d/99-hardening.conf <<'EOF'
-PermitRootLogin no
+PermitRootLogin prohibit-password
 PasswordAuthentication no
 PubkeyAuthentication yes
 KbdInteractiveAuthentication no

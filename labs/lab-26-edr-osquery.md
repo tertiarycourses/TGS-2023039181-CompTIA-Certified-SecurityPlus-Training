@@ -12,9 +12,9 @@ Run on https://killercoda.com/playgrounds/scenario/ubuntu
 ## Step 1 — Install
 
 ```bash
-export OSQUERY_KEY=1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys $OSQUERY_KEY 2>/dev/null
-add-apt-repository -y 'deb [arch=amd64] https://pkg.osquery.io/deb deb main'
+curl -fsSL https://pkg.osquery.io/deb/pubkey.gpg | gpg --dearmor -o /usr/share/keyrings/osquery.gpg
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/osquery.gpg] https://pkg.osquery.io/deb deb main" \
+  > /etc/apt/sources.list.d/osquery.list
 apt update && apt install -y osquery
 osqueryi --version
 ```

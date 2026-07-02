@@ -76,9 +76,9 @@ unlock_time = 600
 fail_interval = 900
 EOF
 
-# enable in PAM
-sed -i '/^auth\s*required\s*pam_unix.so/i auth required pam_faillock.so preauth silent' /etc/pam.d/common-auth
-sed -i '/^auth\s*required\s*pam_unix.so/a auth [default=die] pam_faillock.so authfail' /etc/pam.d/common-auth
+# enable in PAM (common-auth's pam_unix line is "[success=1 default=ignore]" on modern Ubuntu)
+sed -i '/pam_unix.so/i auth required pam_faillock.so preauth silent' /etc/pam.d/common-auth
+sed -i '/pam_unix.so/a auth [default=die] pam_faillock.so authfail' /etc/pam.d/common-auth
 
 faillock --user alice
 for i in 1 2 3 4 5 6; do su - alice -c 'true' < /dev/null 2>/dev/null; done

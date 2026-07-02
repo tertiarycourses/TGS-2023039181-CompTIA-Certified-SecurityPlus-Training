@@ -5,18 +5,25 @@ You will collect public footprint of a domain you own using only **passive** too
 Run on https://killercoda.com/playgrounds/scenario/ubuntu
 
 **Required software (free, apt + pip):**
-- `whois`, `dnsutils`
-- `theharvester`
-- `subfinder` (binary)
+- `whois`, `dnsutils`, `jq`
+- `theHarvester` (pip, from source)
+- `subfinder` (prebuilt binary)
 
 ---
 
 ## Step 1 — Install
 
+The PyPI `theHarvester` package is an abandoned stub, so install the current
+tool straight from source. `subfinder` now needs Go 1.24 to build, so grab the
+official prebuilt binary instead of using `go install`.
+
 ```bash
-apt update && apt install -y whois dnsutils python3-pip golang-go
-pip3 install --break-system-packages theHarvester
-GOBIN=/usr/local/bin go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+apt update && apt install -y whois dnsutils python3-pip jq unzip curl
+pip3 install --break-system-packages git+https://github.com/laramies/theHarvester.git
+SF_VER=$(curl -s https://api.github.com/repos/projectdiscovery/subfinder/releases/latest | grep -oP '"tag_name": "v\K[^"]+')
+curl -sL "https://github.com/projectdiscovery/subfinder/releases/download/v${SF_VER}/subfinder_${SF_VER}_linux_amd64.zip" -o /tmp/subfinder.zip
+unzip -o /tmp/subfinder.zip subfinder -d /usr/local/bin/
+chmod +x /usr/local/bin/subfinder
 ```
 
 ---

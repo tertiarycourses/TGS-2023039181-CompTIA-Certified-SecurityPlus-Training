@@ -62,9 +62,11 @@ serial = $dir/serial
 new_certs_dir = $dir/newcerts
 certificate = $dir/certs/ca.crt
 private_key = $dir/private/ca.key
+crlnumber = $dir/crlnumber
 default_md = sha256
 policy = pol
 default_days = 365
+default_crl_days = 30
 [ pol ]
 commonName = supplied
 organizationName = optional

@@ -22,15 +22,18 @@ aide --version
 
 ```bash
 cat > /etc/aide/aide.conf.d/99_lab <<'EOF'
-/etc/passwd  NORMAL
-/etc/shadow  NORMAL
-/etc/sudoers NORMAL
-/usr/bin     LSPP
-/usr/sbin    LSPP
+# Debian/Ubuntu AIDE ships no LSPP/NORMAL macro, so define our own check groups
+LAB_NORMAL = p+i+n+u+g+s+m+c+sha256
+LAB_STRICT = p+i+n+u+g+s+b+m+c+acl+xattrs+sha256+sha512
+/etc/passwd  LAB_NORMAL
+/etc/shadow  LAB_NORMAL
+/etc/sudoers LAB_NORMAL
+/usr/bin     LAB_STRICT
+/usr/sbin    LAB_STRICT
 EOF
 ```
 
-`NORMAL` checks size, perms, hashes. `LSPP` is the strict "Labelled Security Protection Profile" preset.
+`LAB_NORMAL` checks size, perms, ownership and a SHA-256 hash. `LAB_STRICT` adds ACLs and extended attributes for the strictest coverage.
 
 ---
 

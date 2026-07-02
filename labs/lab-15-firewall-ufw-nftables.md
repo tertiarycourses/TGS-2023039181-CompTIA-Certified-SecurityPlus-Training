@@ -8,13 +8,14 @@ Run on https://killercoda.com/playgrounds/scenario/ubuntu
 - `ufw`
 - `nftables`
 - `nginx`
+- `netcat-openbsd`
 
 ---
 
 ## Step 1 — Install
 
 ```bash
-apt update && apt install -y ufw nftables nginx
+apt update && apt install -y ufw nftables nginx netcat-openbsd
 systemctl start nginx
 ```
 

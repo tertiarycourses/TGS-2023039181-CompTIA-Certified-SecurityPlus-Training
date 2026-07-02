@@ -10,6 +10,28 @@ A complete set of **36 step-by-step labs** aligned to the [CompTIA Security+ SY0
 
 ---
 
+## Courseware
+
+The full course materials are generated from a single source (`courseware/build/`) so the slide deck, Lesson Plan, Learner Guide and labs stay 100% aligned. Build outputs live in [`courseware/`](courseware/):
+
+- **Slide deck** — `CompTIA Security+ (SY0-701)-v1.0.pptx` (+ PDF) — all-white house style, one section per SY0-701 domain with an overview / step / verify slide for every lab.
+- **Lesson Plan** — `LP-CompTIA Security+ (SY0-701).docx` (+ PDF) — 3-day schedule (9:30am–6:30pm), 8 training hours/day, 2-hour final assessment.
+- **Learner Guide** — `LG-CompTIA Security+ (SY0-701).docx` (+ PDF), mirrored as [`LG-CompTIA Security+ (SY0-701).md`](LG-CompTIA%20Security%2B%20(SY0-701).md) for reading on GitHub.
+- **Practice exam** — https://exams.tertiaryinfotech.com/practice-exams/comptia/comptia-security-plus
+
+To regenerate everything after editing content in `courseware/build/course_data.py` or `data_domainN.py`:
+
+```bash
+cd courseware/build
+python3 build_slides.py         # -> courseware/*.pptx
+python3 build_lesson_plan.py    # -> courseware/LP-*.docx
+python3 build_learner_guide.py  # -> LG-*.md (repo root) + courseware/LG-*.docx
+```
+
+> Assessment materials (question papers + answer keys) are confidential and are **not** published in this repository.
+
+---
+
 ## How to use
 
 1. Open the Killercoda playground in your browser: https://killercoda.com/playgrounds/scenario/ubuntu

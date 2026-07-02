@@ -14,7 +14,7 @@ Run on https://killercoda.com/playgrounds/scenario/ubuntu
 ## Step 1 — Install the attack tools
 
 ```bash
-apt update && apt install -y hydra john
+apt update && apt install -y hydra john openssh-server
 ```
 
 ---
@@ -58,10 +58,10 @@ hydra -l victim -P words.txt -t 4 -f ssh://127.0.0.1
 ## Step 5 — Detect the attack
 
 ```bash
-grep "Failed password" /var/log/auth.log | tail
+grep "Failed password" /var/log/auth.log 2>/dev/null | tail || journalctl -u ssh --no-pager | grep "Failed password" | tail
 ```
 
-Repeated failures from the same IP are the signature of brute force.
+Repeated failures from the same IP are the signature of brute force. (On newer Ubuntu without `rsyslog`, SSH events go to the systemd journal — the `journalctl` fallback covers that.)
 
 ---
 

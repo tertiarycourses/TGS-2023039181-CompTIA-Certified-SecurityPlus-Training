@@ -73,7 +73,7 @@ su - alice -c 'whoami'
 ## Step 5 — Authorization: what you can do
 
 ```bash
-echo "alice ALL=(ALL) /usr/bin/cat /var/log/auth.log" >> /etc/sudoers
+echo "alice ALL=(ALL) NOPASSWD: /usr/bin/cat /var/log/auth.log" >> /etc/sudoers
 su - alice -c 'sudo cat /var/log/auth.log | head -3'
 su - alice -c 'sudo cat /etc/shadow' 2>&1 | tail -1
 ```

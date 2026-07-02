@@ -13,9 +13,13 @@ Run on https://killercoda.com/playgrounds/scenario/ubuntu
 ## Step 1 — Install
 
 ```bash
-apt update && apt install -y nmap nginx
+apt update && apt install -y nmap nginx openssh-server
 systemctl start nginx
+systemctl start ssh
 ```
+
+We start both `nginx` (port 80) and `ssh` (port 22) so the later version- and
+NSE-detection steps have real services to fingerprint on this host.
 
 ---
 

@@ -45,7 +45,7 @@ This is **technical** (enforced by software) and **preventive** (it stops the at
 
 ## Step 3 — Add a detective control on top
 
-Install `auditd` and watch for any process that tries to bind port 23:
+Install `auditd` and watch for any changes to a sensitive file (`/etc/passwd`):
 
 ```bash
 apt update && apt install -y auditd

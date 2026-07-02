@@ -11,8 +11,13 @@ Run on https://killercoda.com/playgrounds/scenario/ubuntu
 
 ## Step 1 — Install
 
+The `oscap` binary moved packages: on Ubuntu 22.04 it ships in `libopenscap8`,
+while on Ubuntu 24.04 it ships in `openscap-scanner`. Install the SSG content
+first, then whichever scanner package this release provides.
+
 ```bash
-apt update && apt install -y libopenscap8 ssg-base ssg-debian ssg-debderived python3
+apt update && apt install -y ssg-base ssg-debian ssg-debderived python3
+apt install -y openscap-scanner || apt install -y libopenscap8
 ls /usr/share/xml/scap/ssg/content/
 ```
 

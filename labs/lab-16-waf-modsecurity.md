@@ -1,12 +1,16 @@
 # Lab 16 — Web Application Firewall (WAF) with ModSecurity
 
-You will deploy nginx + ModSecurity 3 + the OWASP Core Rule Set, then watch it block real attack payloads.
+You will deploy Apache + ModSecurity + the OWASP Core Rule Set, then watch it block real attack payloads.
 
 Run on https://killercoda.com/playgrounds/scenario/ubuntu
 
+> The nginx ModSecurity connector is not packaged in the Ubuntu 22.04 archive, so
+> this lab uses the Apache module `libapache2-mod-security2`, which is available on
+> both Ubuntu 22.04 and 24.04.
+
 **Required software (free, apt):**
-- `nginx`
-- `libmodsecurity3`, `libnginx-mod-http-modsecurity`
+- `apache2`
+- `libapache2-mod-security2`
 - `modsecurity-crs`
 
 ---
@@ -14,32 +18,24 @@ Run on https://killercoda.com/playgrounds/scenario/ubuntu
 ## Step 1 — Install
 
 ```bash
-apt update && apt install -y nginx libnginx-mod-http-modsecurity modsecurity-crs
+apt update && apt install -y apache2 libapache2-mod-security2 modsecurity-crs
 ```
+
+Installing `libapache2-mod-security2` enables the Apache `security2` module automatically.
 
 ---
 
-## Step 2 — Enable ModSecurity in nginx
+## Step 2 — Enable the rule engine and load the CRS
 
 ```bash
-cat > /etc/nginx/modsec.conf <<'EOF'
-Include /etc/modsecurity/modsecurity.conf
-Include /usr/share/modsecurity-crs/owasp-crs.load
-EOF
-
 cp /etc/modsecurity/modsecurity.conf-recommended /etc/modsecurity/modsecurity.conf
-sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/modsecurity/modsecurity.conf
+sed -i 's/^SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/modsecurity/modsecurity.conf
 
-cat > /etc/nginx/sites-available/default <<'EOF'
-server {
-  listen 80 default_server;
-  modsecurity on;
-  modsecurity_rules_file /etc/nginx/modsec.conf;
-  root /var/www/html;
-}
-EOF
+# Apache's security2 config already does: IncludeOptional /etc/modsecurity/*.conf
+# Add a file (loaded after modsecurity.conf) that pulls in the OWASP CRS.
+echo 'Include /usr/share/modsecurity-crs/owasp-crs.load' > /etc/modsecurity/owasp-crs.conf
 
-systemctl restart nginx
+apachectl configtest && systemctl restart apache2
 ```
 
 ---
@@ -47,10 +43,11 @@ systemctl restart nginx
 ## Step 3 — Confirm CRS is loaded
 
 ```bash
-nginx -T 2>/dev/null | grep -ci "SecRule"
+apachectl -M 2>/dev/null | grep security2
+grep -rh "^SecRule" /usr/share/modsecurity-crs/rules/*.conf | wc -l
 ```
 
-You should see hundreds of loaded rules.
+You should see the `security2_module` loaded and hundreds of rules on disk.
 
 ---
 
@@ -85,7 +82,7 @@ If a legitimate request is blocked, exempt the specific rule for that path:
 ```bash
 echo 'SecRule REQUEST_URI "@beginsWith /admin/edit" "id:1000,phase:1,pass,nolog,ctl:ruleRemoveById=941100"' \
   >> /etc/modsecurity/modsecurity.conf
-systemctl reload nginx
+systemctl reload apache2
 ```
 
 ---

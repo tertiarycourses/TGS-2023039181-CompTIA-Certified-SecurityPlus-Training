@@ -48,7 +48,6 @@ ip addr add 10.0.30.1/24 dev veth-mgmt-r
 for z in dmz internal mgmt; do
   ip netns exec $z ip link set veth-$z up
   ip netns exec $z ip link set lo up
-  ip netns exec $z ip route add default via 10.0.${z/dmz/10}.1 2>/dev/null
 done
 ip netns exec dmz      ip route add default via 10.0.10.1
 ip netns exec internal ip route add default via 10.0.20.1

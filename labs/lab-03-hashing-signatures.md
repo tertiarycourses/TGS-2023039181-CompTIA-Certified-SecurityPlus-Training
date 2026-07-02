@@ -13,8 +13,8 @@ Run on https://killercoda.com/playgrounds/scenario/ubuntu
 ## Step 1 — Plain hashing
 
 ```bash
-echo -n "Pa$$w0rd" | sha256sum
-echo -n "Pa$$w0rd" | sha256sum
+echo -n 'Pa$$w0rd' | sha256sum
+echo -n 'Pa$$w0rd' | sha256sum
 ```
 
 Same input → same digest. Hashes are deterministic, which is why a **rainbow table** can crack them.
@@ -26,7 +26,7 @@ Same input → same digest. Hashes are deterministic, which is why a **rainbow t
 ```bash
 SALT=$(openssl rand -hex 8)
 echo "Salt: $SALT"
-echo -n "${SALT}Pa$$w0rd" | sha256sum
+echo -n "${SALT}"'Pa$$w0rd' | sha256sum
 ```
 
 Re-run with a different salt and observe a totally different digest. Salt defeats rainbow tables because every user has a unique salt.

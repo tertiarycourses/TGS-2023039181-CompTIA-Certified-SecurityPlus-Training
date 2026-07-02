@@ -1,0 +1,15 @@
+# WSQ assessment materials (confidential — never pushed)
+/assessment/
+/assessment\ /
+
+# Local Claude config / imported skills (kept local, not published)
+.claude/
+
+# OS / build noise
+.DS_Store
+**/__pycache__/
+*.pyc
+.playwright-mcp/
+
+# Assessment generator (contains confidential questions + answer keys)
+/courseware/build/build_assessment_secplus.py

@@ -13,7 +13,7 @@ Run on https://killercoda.com/playgrounds/scenario/ubuntu (use the **2 hour** se
 ## Step 1 — Install Wazuh all-in-one
 
 ```bash
-curl -sO https://packages.wazuh.com/4.7/wazuh-install.sh
+curl -sO https://packages.wazuh.com/4.9/wazuh-install.sh
 bash wazuh-install.sh -a -i 2>&1 | tail -20
 ```
 
@@ -44,8 +44,8 @@ KEY=$(/var/ossec/bin/manage_agents -e 001 | tail -1)
 Install + start the agent:
 
 ```bash
-curl -sO https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.7.0-1_amd64.deb
-WAZUH_MANAGER='127.0.0.1' dpkg -i wazuh-agent_4.7.0-1_amd64.deb
+curl -sO https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.9.0-1_amd64.deb
+WAZUH_MANAGER='127.0.0.1' dpkg -i wazuh-agent_4.9.0-1_amd64.deb
 systemctl enable --now wazuh-agent
 ```
 
