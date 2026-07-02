@@ -10,6 +10,3 @@
 **/__pycache__/
 *.pyc
 .playwright-mcp/
-
-# Assessment generator (contains confidential questions + answer keys)
-/courseware/build/build_assessment_secplus.py
