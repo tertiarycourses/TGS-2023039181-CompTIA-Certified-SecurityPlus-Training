@@ -327,3 +327,21 @@ Killercoda playground (free, no signup): https://killercoda.com/playgrounds/scen
 ---
 
 All tools above are free of charge. The Killercoda VM is also free and disposable, so you can run every lab without spending or installing anything on your own machine — except a couple of optional GUI tools in Section B.
+
+---
+
+## Section C — Browser ed-tools (interactive, no install)
+
+These interactive tools run entirely in the browser and are used throughout the labs to visualise and practise concepts.
+
+| Tool | URL | Purpose | Labs |
+|------|-----|---------|------|
+| Cybersecurity Simulator | https://alfredang.github.io/cybersecuritysimulator/ | Attack/defence scenario simulator | 1, 6 |
+| Ethical Hacking Toolkit | https://alfredang.github.io/ethnicalhacking/ | Guided recon, scanning & exploitation | 32–34 |
+| FauxBank Pentest Target | https://pentest-fauxbank.vercel.app/ | Deliberately vulnerable bank (SQLi/XSS) | 9, 10 |
+| Cryptography Toolkit | https://alfredang.github.io/cryptography-toolkit/ | Hashing, encryption & signatures playground | 3, 4, 5 |
+| IP Calculator | https://alfredang.github.io/ipcalculator/ | Subnet / CIDR planning | 14 |
+| PCAP Analyzer | https://alfredang.github.io/pcapanalyzer/ | Dissect packet captures in the browser | 11, 25, 40 |
+| Regex Generator | https://alfredang.github.io/regexgenerator/ | Build regex for SIEM/log parsing | 21, 24 |
+
+> Only test systems you are authorised to test. FauxBank and the course labs are your legal practice targets.

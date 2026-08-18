@@ -1,6 +1,6 @@
 # CompTIA Security+ Certification (SY0-701) — Learner Guide
 
-**WSQ Course Code:** TGS-2023039181  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v1.0 · 2 July 2026**
+**WSQ Course Code:** TGS-2023039181  |  **Conducted by:** Tertiary Infotech Academy Pte Ltd (UEN 201200696W)  |  **Version v2.0 · 18 August 2026**
 
 ## Contents
 
@@ -30,6 +30,9 @@
   - [Lab 18 — Data at Rest: LUKS Full-Disk Encryption](#lab-18--data-at-rest-luks-full-disk-encryption)
   - [Lab 19 — TLS Hardening and Cipher Audit](#lab-19--tls-hardening-and-cipher-audit)
   - [Lab 20 — Backup and Recovery with restic](#lab-20--backup-and-recovery-with-restic)
+  - [Lab 37 — Cloud Shared Responsibility & IAM Least Privilege](#lab-37--cloud-shared-responsibility--iam-least-privilege)
+  - [Lab 38 — Container Security with Docker](#lab-38--container-security-with-docker)
+  - [Lab 39 — Storage Resilience with Software RAID (mdadm)](#lab-39--storage-resilience-with-software-raid-mdadm)
 - [Domain 04 — Security Operations  (28%)](#domain-04--security-operations--28)
   - [Lab 21 — SSH Hardening + Fail2ban](#lab-21--ssh-hardening--fail2ban)
   - [Lab 22 — IAM with PAM and sudo](#lab-22--iam-with-pam-and-sudo)
@@ -41,6 +44,10 @@
   - [Lab 28 — Vulnerability Management with Trivy](#lab-28--vulnerability-management-with-trivy)
   - [Lab 29 — Incident Response and Forensics](#lab-29--incident-response-and-forensics)
   - [Lab 30 — Automation and Orchestration (Mini-SOAR)](#lab-30--automation-and-orchestration-mini-soar)
+  - [Lab 40 — Packet Capture & Traffic Analysis](#lab-40--packet-capture--traffic-analysis)
+  - [Lab 41 — Mobile & Endpoint Hardening Baseline](#lab-41--mobile--endpoint-hardening-baseline)
+  - [Lab 42 — Secure Data Sanitisation (Media Disposal)](#lab-42--secure-data-sanitisation-media-disposal)
+  - [Lab 43 — Digital Forensics — Evidence Acquisition & Hashing](#lab-43--digital-forensics--evidence-acquisition--hashing)
 - [Domain 05 — Security Program Management & Oversight  (20%)](#domain-05--security-program-management--oversight--20)
   - [Lab 31 — Risk Register, CVSS Scoring, and Quantitative Risk](#lab-31--risk-register-cvss-scoring-and-quantitative-risk)
   - [Lab 32 — Passive Reconnaissance / OSINT](#lab-32--passive-reconnaissance--osint)
@@ -54,18 +61,18 @@
 
 ## Introduction
 
-This Learner Guide accompanies the WSQ course CompTIA Security+ Certification (SY0-701) (TGS-2023039181), conducted by Tertiary Infotech Academy Pte Ltd. It provides step-by-step instructions for all 36 hands-on labs, organised by the five official CompTIA Security+ SY0-701 exam domains. Every lab maps to a published exam objective and runs in the free Killercoda Ubuntu Playground — a disposable Linux VM in your browser.
+This Learner Guide accompanies the WSQ course CompTIA Security+ Certification (SY0-701) (TGS-2023039181), conducted by Tertiary Infotech Academy Pte Ltd. It provides step-by-step instructions for all 43 hands-on labs, organised by the five official CompTIA Security+ SY0-701 exam domains. Every lab maps to a published exam objective and runs in the free Killercoda Ubuntu Playground — a disposable Linux VM in your browser.
 
-Use this guide alongside the course slides and the full lab files in the labs/ folder of the course repository (https://github.com/tertiarycourses/TGS-2023039181-SecurityPlus). Each lab notes the free tools it uses and how to verify success; reset the Killercoda playground between labs that change firewall, PAM or routing state.
+Use this guide alongside the course slides and the full lab files in the labs/ folder of the course repository (https://github.com/tertiarycourses/TGS-2023039181-CompTIA-Certified-SecurityPlus-Training). Each lab notes the free tools it uses and how to verify success; reset the Killercoda playground between labs that change firewall, PAM or routing state.
 
 
 ## Course Learning Outcomes
 
-- LO1: Apply general security concepts — control categories and types, the CIA triad and AAA, cryptographic primitives (hashing, symmetric/asymmetric encryption) and PKI.
-- LO2: Identify threats, vulnerabilities and mitigations — phishing, password and web attacks (SQLi, XSS), malware, denial-of-service, vulnerability scanning and host hardening.
-- LO3: Implement secure architecture — network segmentation, firewalls, WAF, VPN, data-at-rest encryption, TLS hardening and resilient backup.
-- LO4: Run security operations — SSH/identity hardening, MFA, SIEM, IDS, EDR, file-integrity monitoring, vulnerability management, incident response and automation.
-- LO5: Manage the security program — risk registers and CVSS, reconnaissance, penetration testing, compliance auditing and security-awareness testing.
+- LO1: Apply general security concepts — control categories and types, the CIA triad and AAA, Zero Trust, change management, cryptographic primitives (hashing, symmetric/asymmetric encryption) and PKI.
+- LO2: Identify threats, vulnerabilities and mitigations — threat actors, social engineering, password and web attacks (SQLi, XSS), malware, denial-of-service, wireless attacks and hardening.
+- LO3: Implement secure architecture — cloud and enterprise models, network segmentation, firewalls, WAF, VPN, container security, data-at-rest encryption, TLS hardening and resilient backup/RAID.
+- LO4: Run security operations — SSH/identity hardening, MFA, SIEM, IDS, EDR, file-integrity monitoring, packet analysis, vulnerability management, incident response, forensics and automation.
+- LO5: Manage the security program — governance, risk registers and CVSS, third-party risk, reconnaissance, penetration testing, compliance auditing and security-awareness testing.
 
 
 ## Before You Start — Environment Setup
@@ -75,7 +82,7 @@ Use this guide alongside the course slides and the full lab files in the labs/ f
 - A modern web browser — no local installation is required.
 - The free Killercoda Ubuntu Playground: https://killercoda.com/playgrounds/scenario/ubuntu
 - A root shell with internet access (provided by Killercoda) to install tools via apt or a single binary download.
-- The course lab files — clone or download the repository at https://github.com/tertiarycourses/TGS-2023039181-SecurityPlus.
+- The course lab files — clone or download the repository at https://github.com/tertiarycourses/TGS-2023039181-CompTIA-Certified-SecurityPlus-Training.
 
 **Launch the Killercoda Ubuntu Playground**
 
@@ -99,12 +106,12 @@ Legal & ethical use: labs involving scanning, exploitation, password cracking, p
 
 ## Domain 01 — General Security Concepts  (12%)
 
-Security controls · CIA & AAA · Hashing · Encryption · PKI
+Security controls · CIA & AAA · Zero Trust · Change management · Cryptography · PKI
 
 **Key concepts**
 
 - Security controls are grouped by CATEGORY (technical, managerial, operational, physical) and by TYPE (preventive, deterrent, detective, corrective, compensating, directive).
-- The CIA triad — confidentiality, integrity, availability — is the goal; AAA (authentication, authorization, accounting) is how identities are governed.
+- The CIA triad — confidentiality, integrity, availability — is the goal; AAA (authentication, authorization, accounting) is how identities are governed; Zero Trust removes implicit trust.
 - Hashing proves integrity; salting defeats rainbow tables; digital signatures add authenticity and non-repudiation.
 - Symmetric encryption is fast for bulk data; asymmetric (public-key) solves key exchange; PKI and certificate authorities bind keys to identities.
 
@@ -162,6 +169,9 @@ A control matrix plus a live iptables firewall block and auditd file-watch rule.
 **Test it**
 
 The iptables rule appears in the INPUT chain and ausearch shows the logged /etc/passwd change.
+
+![Lab 1 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-01.png)
+*Lab 1 — expected terminal output on the Killercoda playground*
 
 > **Note:** Full step-by-step commands and references are in labs/lab-01-*.md. Reset the Killercoda playground before the next stateful lab.
 
@@ -236,6 +246,9 @@ EOF
 
 Bob is denied the secret, the tampered checksum fails, alice can run only her one sudo command, and auth.log records every action.
 
+![Lab 2 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-02.png)
+*Lab 2 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-02-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -305,6 +318,9 @@ Salted hashes, a stretched password hash, and a verified RSA signature over a do
 **Test it**
 
 The signature returns Verified OK on the original file and Verification Failure after tampering.
+
+![Lab 3 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-03.png)
+*Lab 3 — expected terminal output on the Killercoda playground*
 
 > **Note:** Full step-by-step commands and references are in labs/lab-03-*.md. Reset the Killercoda playground before the next stateful lab.
 
@@ -376,6 +392,9 @@ An AES-encrypted file, a GPG key pair with a public/private encrypt-decrypt roun
 
 AES decryption returns the plaintext and the GPG packet dump shows a pubkey-enc packet wrapping an AES-encrypted data packet.
 
+![Lab 4 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-04.png)
+*Lab 4 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-04-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -446,6 +465,9 @@ A self-signed root CA, a CA-signed server certificate, and a CRL listing the rev
 
 The server cert shows issuer Lab Root CA, and the generated CRL lists server.crt as revoked.
 
+![Lab 5 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-05.png)
+*Lab 5 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-05-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -453,14 +475,14 @@ The server cert shows issuer Lab Root CA, and the generated CRL lists server.crt
 
 ## Domain 02 — Threats, Vulnerabilities & Mitigations  (22%)
 
-Phishing · Passwords · Malware · Web attacks · Scanning · Hardening
+Threat actors · Social engineering · Malware · Web & password attacks · Wireless · Mitigations
 
 **Key concepts**
 
+- Threat actors range from script kiddies to organised crime and nation-states — motivation and capability drive the defence you need.
 - Social engineering and phishing exploit people; SPF, DKIM and DMARC authenticate mail and expose spoofing.
-- Password attacks (spraying, brute force, offline cracking) are countered by length, hashing with salt, and lockout.
-- Web application flaws — SQL injection and cross-site scripting (XSS) — come from unvalidated input; mitigate with parameterisation and output encoding.
-- Find weaknesses before attackers do: vulnerability scanning, malware analysis and a hardening baseline reduce the attack surface.
+- Password, wireless and web application attacks (SQL injection, XSS) exploit weak secrets and unvalidated input; malware analysis reveals indicators of compromise.
+- Mitigation is layered: vulnerability scanning, patching, hardening baselines, segmentation and monitoring shrink the attack surface.
 
 
 ### Lab 6 — Phishing Email Header Analysis (SPF / DKIM / DMARC)
@@ -517,6 +539,9 @@ EOF
 **Test it**
 
 The learner confirms spf=fail, dkim=none, dmarc=fail in the header and that the sending IP is absent from the real SPF record.
+
+![Lab 6 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-06.png)
+*Lab 6 — expected terminal output on the Killercoda playground*
 
 > **Note:** Full step-by-step commands and references are in labs/lab-06-*.md. Reset the Killercoda playground before the next stateful lab.
 
@@ -584,6 +609,9 @@ EOF
 
 The learner verifies hydra reports 'password123' as valid and John's --show reveals the cracked hash.
 
+![Lab 7 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-07.png)
+*Lab 7 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-07-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -647,6 +675,9 @@ A static-analysis workflow producing an IoC hash and a reusable YARA detection. 
 **Test it**
 
 The learner confirms the YARA rule matches sample.bin and that the SHA-256 is recognized across VirusTotal engines.
+
+![Lab 8 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-08.png)
+*Lab 8 — expected terminal output on the Killercoda playground*
 
 > **Note:** Full step-by-step commands and references are in labs/lab-08-*.md. Reset the Killercoda playground before the next stateful lab.
 
@@ -714,6 +745,9 @@ EOF
 
 The learner verifies the injected payload logs in before the patch and returns nothing after switching to bind parameters.
 
+![Lab 9 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-09.png)
+*Lab 9 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-09-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -777,6 +811,9 @@ Vulnerable search/guestbook pages plus their encoding and CSP mitigations.   (To
 **Test it**
 
 The learner confirms the script reflects verbatim before the fix and appears as escaped &lt;script&gt; text with a CSP header after.
+
+![Lab 10 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-10.png)
+*Lab 10 — expected terminal output on the Killercoda playground*
 
 > **Note:** Full step-by-step commands and references are in labs/lab-10-*.md. Reset the Killercoda playground before the next stateful lab.
 
@@ -842,6 +879,9 @@ A SYN-flood detection-and-mitigation exercise on a local nginx target.   (Tools:
 
 The learner verifies the SYN-RECV count spikes during the flood and stays bounded after enabling SYN cookies plus rate-limiting.
 
+![Lab 11 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-11.png)
+*Lab 11 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-11-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -899,6 +939,9 @@ A prioritised, CVSS-ranked remediation queue with verified header fixes.   (Tool
 **Test it**
 
 The learner verifies the missing-header findings disappear from the Nikto output after applying the hardening config.
+
+![Lab 12 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-12.png)
+*Lab 12 — expected terminal output on the Killercoda playground*
 
 > **Note:** Full step-by-step commands and references are in labs/lab-12-*.md. Reset the Killercoda playground before the next stateful lab.
 
@@ -964,6 +1007,9 @@ A before/after hardening score with CIS-aligned baseline fixes applied.   (Tools
 
 The learner confirms the Lynis hardening index climbs 10-15 points between the before and after audits.
 
+![Lab 13 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-13.png)
+*Lab 13 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-13-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -971,14 +1017,14 @@ The learner confirms the Lynis hardening index climbs 10-15 points between the b
 
 ## Domain 03 — Security Architecture  (18%)
 
-Segmentation · Firewalls · WAF · VPN · Encryption at rest · TLS · Backup
+Cloud & enterprise models · Segmentation · Firewalls · WAF · VPN · Containers · Data protection · Resilience
 
 **Key concepts**
 
+- Architecture models — on-premises, cloud, hybrid, virtualisation, containers, IoT/ICS — each shift the attack surface and the shared-responsibility line.
 - Defence in depth layers controls; network segmentation and firewalls limit lateral movement and enforce least privilege between zones.
-- A web application firewall (WAF) filters HTTP attacks; a VPN protects data in transit across untrusted networks.
-- Protect data at rest with full-disk encryption (LUKS) and data in transit with hardened TLS ciphers and protocols.
-- Resilience is a security property: a tested 3-2-1 backup and recovery plan defeats ransomware and hardware failure.
+- A web application firewall (WAF) filters HTTP attacks; a VPN protects data in transit; full-disk encryption (LUKS) and hardened TLS protect data at rest and in motion.
+- Resilience is a security property: RAID redundancy plus a tested 3-2-1 backup and recovery plan defeats ransomware and hardware failure.
 
 
 ### Lab 14 — Network Segmentation with Linux Namespaces
@@ -1039,6 +1085,9 @@ Three isolated L3 zones behind a host router   (Tools: ip netns, iproute2, veth,
 **Test it**
 
 DMZ-to-Internal pings fail while Internal-to-DMZ and Mgmt-to-DMZ succeed.
+
+![Lab 14 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-14.png)
+*Lab 14 — expected terminal output on the Killercoda playground*
 
 > **Note:** Full step-by-step commands and references are in labs/lab-14-*.md. Reset the Killercoda playground before the next stateful lab.
 
@@ -1104,6 +1153,9 @@ A default-deny host firewall with visible counters   (Tools: ufw, nftables, ngin
 
 Port 80 answers, port 23 is blocked, and rule counters increment under load.
 
+![Lab 15 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-15.png)
+*Lab 15 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-15-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -1168,6 +1220,9 @@ An Apache site protected by the OWASP CRS   (Tools: apache2, libapache2-mod-secu
 
 Each attack payload returns HTTP 403 and is recorded in the audit log.
 
+![Lab 16 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-16.png)
+*Lab 16 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-16-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -1225,6 +1280,9 @@ A two-endpoint WireGuard tunnel across namespaces   (Tools: wireguard, wireguard
 **Test it**
 
 Ping succeeds and wg show reports a recent handshake with transferred bytes.
+
+![Lab 17 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-17.png)
+*Lab 17 — expected terminal output on the Killercoda playground*
 
 > **Note:** Full step-by-step commands and references are in labs/lab-17-*.md. Reset the Killercoda playground before the next stateful lab.
 
@@ -1290,6 +1348,9 @@ An encrypted volume with rotation and a keyfile   (Tools: cryptsetup, losetup, m
 
 The secret string is unrecoverable from the raw image and both credentials unlock the volume.
 
+![Lab 18 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-18.png)
+*Lab 18 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-18-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -1341,6 +1402,9 @@ A hardened TLS 1.2/1.3 nginx site with HSTS   (Tools: nginx, openssl, testssl.sh
 **Test it**
 
 TLS 1.1 is rejected while TLS 1.3 negotiates a strong AEAD cipher and HSTS is present.
+
+![Lab 19 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-19.png)
+*Lab 19 — expected terminal output on the Killercoda playground*
 
 > **Note:** Full step-by-step commands and references are in labs/lab-19-*.md. Reset the Killercoda playground before the next stateful lab.
 
@@ -1406,21 +1470,201 @@ An encrypted restic repo with tested recovery   (Tools: restic, python3.)
 
 The pre-ransomware snapshot restores the original file contents intact.
 
+![Lab 20 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-20.png)
+*Lab 20 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-20-*.md. Reset the Killercoda playground before the next stateful lab.
+
+---
+
+
+### Lab 37 — Cloud Shared Responsibility & IAM Least Privilege
+
+Exam objective: Apply least privilege and read a shared-responsibility model.
+
+Goal: The learner models the cloud shared-responsibility split, then enforces least privilege on a mock cloud IAM policy and detects an over-permissive grant.
+
+**What you'll build**
+
+A responsibility matrix (IaaS/PaaS/SaaS) and a tightened least-privilege JSON policy with the wildcard removed.   (Tools: jq, policy JSON, bash.)
+
+**Step-by-step**
+
+1. Create an over-permissive policy granting *:* 
+
+   ```bash
+   echo '{"Effect":"Allow","Action":"*","Resource":"*"}' > policy.json
+   ```
+
+2. Flag the wildcard as a finding
+
+   ```bash
+   jq 'select(.Action=="*")' policy.json && echo "OVER-PERMISSIVE"
+   ```
+
+3. Rewrite it to least privilege (read one bucket)
+
+   ```bash
+   echo '{"Effect":"Allow","Action":["s3:GetObject"],"Resource":"arn:aws:s3:::reports/*"}' > policy.json
+   ```
+
+4. Confirm the wildcard is gone
+
+   ```bash
+   jq -e '.Action|index("*")|not' policy.json && echo LEAST-PRIV
+   ```
+
+5. Map who secures what for IaaS/PaaS/SaaS
+
+   ```bash
+   printf "IaaS: you=OS,app,data\nPaaS: you=app,data\nSaaS: you=data,IAM\n"
+   ```
+
+
+**Test it**
+
+The wildcard policy is flagged, and the rewritten policy scopes a single action to a single resource.
+
+![Lab 37 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-37.png)
+*Lab 37 — expected terminal output on the Killercoda playground*
+
+> **Note:** Full step-by-step commands and references are in labs/lab-37-*.md. Reset the Killercoda playground before the next stateful lab.
+
+---
+
+
+### Lab 38 — Container Security with Docker
+
+Exam objective: Run and harden a container securely.
+
+Goal: The learner runs a container, inspects its isolation, drops capabilities, runs as non-root and scans the image for vulnerabilities.
+
+**What you'll build**
+
+A non-root, capability-dropped container and a Trivy image-scan report.   (Tools: docker, trivy.)
+
+**Step-by-step**
+
+1. Install Docker and run a container
+
+   ```bash
+   apt install -y docker.io && docker run -d --name web nginx
+   ```
+
+2. Inspect the default (root) user
+
+   ```bash
+   docker exec web whoami
+   ```
+
+3. Re-run dropping all capabilities and as non-root
+
+   ```bash
+   docker run -d --name safe --user 1000 --cap-drop ALL --read-only nginx 2>&1 | tail -1
+   ```
+
+4. Confirm the container cannot write the filesystem
+
+   ```bash
+   docker exec safe touch /tmp/x 2>&1 || echo "READ-ONLY enforced"
+   ```
+
+5. Scan the image for known CVEs
+
+   ```bash
+   trivy image --severity HIGH,CRITICAL nginx | head -30
+   ```
+
+6. Limit resources to blunt a DoS
+
+   ```bash
+   docker run -d --name capped --memory 128m --cpus 0.5 nginx
+   ```
+
+
+**Test it**
+
+The hardened container runs as UID 1000 with no capabilities on a read-only root, and Trivy lists the image CVEs.
+
+![Lab 38 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-38.png)
+*Lab 38 — expected terminal output on the Killercoda playground*
+
+> **Note:** Full step-by-step commands and references are in labs/lab-38-*.md. Reset the Killercoda playground before the next stateful lab.
+
+---
+
+
+### Lab 39 — Storage Resilience with Software RAID (mdadm)
+
+Exam objective: Build redundant storage and survive a disk failure.
+
+Goal: The learner builds a RAID 1 mirror from loop devices, writes data, fails a disk, and confirms the data survives — the resilience leg of the CIA triad.
+
+**What you'll build**
+
+A RAID 1 array that keeps serving data after one member is failed and removed.   (Tools: mdadm, losetup, mkfs.ext4.)
+
+**Step-by-step**
+
+1. Install mdadm and create two virtual disks
+
+   ```bash
+   apt install -y mdadm && for d in 1 2; do dd if=/dev/zero of=/disk$d.img bs=1M count=200; done
+   ```
+
+2. Attach them as loop devices
+
+   ```bash
+   lo1=$(losetup -f --show /disk1.img); lo2=$(losetup -f --show /disk2.img)
+   ```
+
+3. Create a RAID 1 mirror
+
+   ```bash
+   mdadm --create /dev/md0 --level=1 --raid-devices=2 $lo1 $lo2
+   ```
+
+4. Format and write a file
+
+   ```bash
+   mkfs.ext4 /dev/md0 && mkdir -p /mnt/r && mount /dev/md0 /mnt/r && echo IMPORTANT > /mnt/r/data.txt
+   ```
+
+5. Fail and remove one disk
+
+   ```bash
+   mdadm /dev/md0 --fail $lo1 --remove $lo1
+   ```
+
+6. Confirm data survives on the degraded array
+
+   ```bash
+   cat /mnt/r/data.txt && mdadm --detail /dev/md0 | grep State
+   ```
+
+
+**Test it**
+
+The array reports a degraded state after the disk failure yet still returns the original file contents.
+
+![Lab 39 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-39.png)
+*Lab 39 — expected terminal output on the Killercoda playground*
+
+> **Note:** Full step-by-step commands and references are in labs/lab-39-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
 
 
 ## Domain 04 — Security Operations  (28%)
 
-Hardening · IAM · MFA · SIEM · IDS · EDR · FIM · Vuln mgmt · IR · SOAR
+Hardening · IAM · MFA · SIEM · IDS · EDR · FIM · Packet analysis · Vuln mgmt · IR · Forensics · SOAR
 
 **Key concepts**
 
-- Operational security hardens access (SSH, PAM, sudo, MFA) and monitors continuously (SIEM, IDS, EDR, file-integrity monitoring).
-- A SIEM centralises and correlates logs; an IDS inspects network traffic; EDR and osquery interrogate endpoints.
-- Vulnerability management is a continuous pipeline: discover, prioritise (CVSS), remediate and verify.
-- Incident response follows preparation → detection → containment → eradication → recovery → lessons learned, increasingly automated with SOAR playbooks.
+- Operational security hardens access (SSH, PAM, sudo, MFA) and monitors continuously (SIEM, IDS, EDR, file-integrity monitoring, packet analysis).
+- A SIEM centralises and correlates logs; an IDS inspects network traffic; EDR and osquery interrogate endpoints; AIDE detects file tampering.
+- Vulnerability management is a continuous pipeline: discover, prioritise (CVSS), remediate and verify — with Trivy, OpenVAS and friends.
+- Incident response follows preparation → detection → containment → eradication → recovery → lessons learned, with digital forensics preserving evidence and SOAR automating the playbook.
 
 
 ### Lab 21 — SSH Hardening + Fail2ban
@@ -1500,6 +1744,9 @@ systemctl restart fail2ban
 
 fail2ban-client status sshd lists 127.0.0.1 as banned, and password login is rejected.
 
+![Lab 21 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-21.png)
+*Lab 21 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-21-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -1567,6 +1814,9 @@ chmod 440 /etc/sudoers.d/roles
 
 alice can restart nginx but not run mysqldump, and faillock counts failed attempts.
 
+![Lab 22 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-22.png)
+*Lab 22 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-22-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -1625,6 +1875,9 @@ SSH requiring publickey and a TOTP one-time code.   (Tools: libpam-google-authen
 **Test it**
 
 SSH login succeeds only after both the key and a valid 6-digit TOTP code.
+
+![Lab 23 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-23.png)
+*Lab 23 — expected terminal output on the Killercoda playground*
 
 > **Note:** Full step-by-step commands and references are in labs/lab-23-*.md. Reset the Killercoda playground before the next stateful lab.
 
@@ -1690,6 +1943,9 @@ Single-node Wazuh manager, indexer, dashboard and local agent.   (Tools: Wazuh m
 **Test it**
 
 Rule 5712 (SSHD brute force) at level 10 appears and its srcip is the attacker IP.
+
+![Lab 24 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-24.png)
+*Lab 24 — expected terminal output on the Killercoda playground*
 
 > **Note:** Full step-by-step commands and references are in labs/lab-24-*.md. Reset the Killercoda playground before the next stateful lab.
 
@@ -1757,6 +2013,9 @@ EOF
 
 eve.json shows the ET Open alert and the custom sid 9000002 firing on the curl request.
 
+![Lab 25 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-25.png)
+*Lab 25 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-25-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -1823,6 +2082,9 @@ systemctl enable --now osqueryd
 **Test it**
 
 osqueryd writes JSON results and the on_disk=0 query surfaces the deleted-binary process.
+
+![Lab 26 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-26.png)
+*Lab 26 — expected terminal output on the Killercoda playground*
 
 > **Note:** Full step-by-step commands and references are in labs/lab-26-*.md. Reset the Killercoda playground before the next stateful lab.
 
@@ -1896,6 +2158,9 @@ chmod +x /etc/cron.daily/aide-check
 
 After tampering, aide --check reports the changed sudoers and new user; a clean baseline reports none.
 
+![Lab 27 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-27.png)
+*Lab 27 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-27-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -1959,6 +2224,9 @@ Trivy scanning pipeline producing a prioritised remediation queue.   (Tools: tri
 **Test it**
 
 Trivy lists HIGH/CRITICAL CVEs, produces a CVSS-sorted top-10, and flags the planted AWS secret.
+
+![Lab 28 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-28.png)
+*Lab 28 — expected terminal output on the Killercoda playground*
 
 > **Note:** Full step-by-step commands and references are in labs/lab-28-*.md. Reset the Killercoda playground before the next stateful lab.
 
@@ -2033,6 +2301,9 @@ sha256sum report.md
 
 The listener/user/cron are gone at recovery and evidence.sha256 re-verifies with no tampering.
 
+![Lab 29 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-29.png)
+*Lab 29 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-29-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -2105,21 +2376,256 @@ EOF
 
 A ticket JSON is created, the source IP is DROPped in iptables, and a soar syslog entry appears.
 
+![Lab 30 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-30.png)
+*Lab 30 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-30-*.md. Reset the Killercoda playground before the next stateful lab.
+
+---
+
+
+### Lab 40 — Packet Capture & Traffic Analysis
+
+Exam objective: Capture and analyse network traffic for indicators.
+
+Goal: The learner captures live traffic with tcpdump, saves a PCAP, and analyses it for suspicious flows — the same skill a SOC analyst uses to confirm an alert.
+
+**What you'll build**
+
+A saved PCAP plus a filtered analysis showing the target flow and any cleartext credentials.   (Tools: tcpdump, tshark, curl.)
+
+**Step-by-step**
+
+1. Install the capture tools
+
+   ```bash
+   apt install -y tcpdump tshark
+   ```
+
+2. Capture traffic to a PCAP file
+
+   ```bash
+   tcpdump -i any -w /tmp/cap.pcap -c 50 &
+   ```
+
+3. Generate some HTTP traffic
+
+   ```bash
+   curl -s http://example.com > /dev/null
+   ```
+
+4. List conversations in the capture
+
+   ```bash
+   tshark -r /tmp/cap.pcap -q -z conv,ip | head
+   ```
+
+5. Filter for a suspicious port / plaintext
+
+   ```bash
+   tshark -r /tmp/cap.pcap -Y 'http.request' -T fields -e ip.dst -e http.host | head
+   ```
+
+6. Upload the PCAP to the browser PCAP Analyzer
+
+   ```bash
+   echo "Open https://alfredang.github.io/pcapanalyzer/ and load /tmp/cap.pcap"
+   ```
+
+
+**Test it**
+
+The PCAP is written and tshark lists the IP conversations and the HTTP requests it contains.
+
+![Lab 40 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-40.png)
+*Lab 40 — expected terminal output on the Killercoda playground*
+
+> **Note:** Full step-by-step commands and references are in labs/lab-40-*.md. Reset the Killercoda playground before the next stateful lab.
+
+---
+
+
+### Lab 41 — Mobile & Endpoint Hardening Baseline
+
+Exam objective: Apply and verify an endpoint hardening baseline.
+
+Goal: The learner applies a hardening baseline to a Linux endpoint (the stand-in for a managed mobile/endpoint), disabling weak services and enforcing policy, then verifies it.
+
+**What you'll build**
+
+A hardened host with password policy, disabled root SSH, and a screen-lock/idle-timeout policy — verified against a checklist.   (Tools: sshd_config, login.defs, pam, systemctl.)
+
+**Step-by-step**
+
+1. Enforce a minimum password age/length policy
+
+   ```bash
+   sed -i "s/^PASS_MIN_LEN.*/PASS_MIN_LEN 12/" /etc/login.defs 2>/dev/null; grep PASS_ /etc/login.defs
+   ```
+
+2. Disable direct root SSH login
+
+   ```bash
+   sed -i "s/^#*PermitRootLogin.*/PermitRootLogin no/" /etc/ssh/sshd_config
+   ```
+
+3. Set an idle session timeout
+
+   ```bash
+   echo "TMOUT=600; readonly TMOUT" > /etc/profile.d/timeout.sh
+   ```
+
+4. Disable an unneeded service
+
+   ```bash
+   systemctl disable --now avahi-daemon 2>/dev/null; echo done
+   ```
+
+5. Verify the baseline against a checklist
+
+   ```bash
+   grep PermitRootLogin /etc/ssh/sshd_config && cat /etc/profile.d/timeout.sh
+   ```
+
+
+**Test it**
+
+Root SSH login is disabled, the password policy is set, and the idle-timeout policy is present.
+
+![Lab 41 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-41.png)
+*Lab 41 — expected terminal output on the Killercoda playground*
+
+> **Note:** Full step-by-step commands and references are in labs/lab-41-*.md. Reset the Killercoda playground before the next stateful lab.
+
+---
+
+
+### Lab 42 — Secure Data Sanitisation (Media Disposal)
+
+Exam objective: Securely wipe media and verify destruction.
+
+Goal: The learner writes sensitive data to a virtual disk, then securely sanitises it and verifies the data is unrecoverable — the disposal stage of the asset lifecycle.
+
+**What you'll build**
+
+A wiped virtual disk whose sensitive string is no longer recoverable, with before/after evidence.   (Tools: dd, shred, grep, strings.)
+
+**Step-by-step**
+
+1. Create a virtual disk with secret data
+
+   ```bash
+   dd if=/dev/zero of=/disk.img bs=1M count=50 && echo "TOP-SECRET-DATA" >> /disk.img
+   ```
+
+2. Confirm the secret is present
+
+   ```bash
+   strings /disk.img | grep TOP-SECRET && echo FOUND
+   ```
+
+3. Securely overwrite the media
+
+   ```bash
+   shred -v -n 3 -z /disk.img
+   ```
+
+4. Confirm the secret is gone
+
+   ```bash
+   strings /disk.img | grep TOP-SECRET || echo "SANITISED — not recoverable"
+   ```
+
+5. Note the method for the disposal record
+
+   ```bash
+   echo "Method: 3-pass overwrite + zero (NIST 800-88 clear)"
+   ```
+
+
+**Test it**
+
+The secret string is found before shred and is absent after — sanitisation is verified.
+
+![Lab 42 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-42.png)
+*Lab 42 — expected terminal output on the Killercoda playground*
+
+> **Note:** Full step-by-step commands and references are in labs/lab-42-*.md. Reset the Killercoda playground before the next stateful lab.
+
+---
+
+
+### Lab 43 — Digital Forensics — Evidence Acquisition & Hashing
+
+Exam objective: Acquire a forensic image with a verifiable chain of custody.
+
+Goal: The learner acquires a bit-for-bit forensic image of evidence media, hashes it for integrity, recovers a deleted artefact, and records the chain of custody.
+
+**What you'll build**
+
+A forensic image with matching acquisition/verification hashes and a recovered deleted file.   (Tools: dd, sha256sum, foremost, mmls.)
+
+**Step-by-step**
+
+1. Prepare evidence media with a file, then delete it
+
+   ```bash
+   dd if=/dev/zero of=/ev.img bs=1M count=20; mkfs.ext4 /ev.img; mkdir -p /m; mount /ev.img /m; echo secret > /m/evidence.txt; rm /m/evidence.txt; umount /m
+   ```
+
+2. Acquire a bit-for-bit image
+
+   ```bash
+   dd if=/ev.img of=/case01.dd bs=512 conv=noerror,sync
+   ```
+
+3. Hash the image on acquisition
+
+   ```bash
+   sha256sum /case01.dd | tee /case01.sha256
+   ```
+
+4. Recover the deleted artefact
+
+   ```bash
+   apt install -y foremost && foremost -i /case01.dd -o /recovered 2>&1 | tail -3
+   ```
+
+5. Re-verify the image hash is unchanged
+
+   ```bash
+   sha256sum -c /case01.sha256
+   ```
+
+6. Record the chain of custody
+
+   ```bash
+   echo "Collected by: <analyst>  Date: <UTC>  Hash: $(cut -d" " -f1 /case01.sha256)"
+   ```
+
+
+**Test it**
+
+The acquisition and verification hashes match, and foremost recovers file data from the image.
+
+![Lab 43 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-43.png)
+*Lab 43 — expected terminal output on the Killercoda playground*
+
+> **Note:** Full step-by-step commands and references are in labs/lab-43-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
 
 
 ## Domain 05 — Security Program Management & Oversight  (20%)
 
-Risk & CVSS · OSINT · Nmap · Pentesting · Compliance · Awareness
+Governance · Risk & CVSS · Third-party risk · Compliance · Audits & pentesting · Awareness
 
 **Key concepts**
 
-- Risk management records threats in a register, scores them (CVSS, likelihood × impact) and drives treatment decisions.
-- Reconnaissance — passive OSINT and active scanning with Nmap — maps an organisation's exposure the way an attacker would.
-- Penetration testing safely validates exploitability; every engagement needs authorisation and Rules of Engagement.
-- Governance proves control effectiveness through compliance auditing (OpenSCAP/CIS) and measurable security-awareness testing.
+- Governance sets direction: policies, standards, procedures and guidelines assign accountability for security outcomes.
+- Risk management records threats in a register, scores them (CVSS, likelihood × impact) and drives treatment decisions; third-party risk extends this to vendors.
+- Reconnaissance — passive OSINT and active scanning with Nmap — maps an organisation's exposure the way an attacker would; penetration testing safely validates exploitability.
+- Oversight proves control effectiveness through compliance auditing (OpenSCAP/CIS) and measurable security-awareness testing.
 
 
 ### Lab 31 — Risk Register, CVSS Scoring, and Quantitative Risk
@@ -2169,6 +2675,9 @@ CSV risk register with CVSS and ALE math   (Tools: python3, FIRST.org CVSS calcu
 **Test it**
 
 The Python output shows ALE 60,000/year and board-report.md lists 4 open risks.
+
+![Lab 31 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-31.png)
+*Lab 31 — expected terminal output on the Killercoda playground*
 
 > **Note:** Full step-by-step commands and references are in labs/lab-31-*.md. Reset the Killercoda playground before the next stateful lab.
 
@@ -2240,6 +2749,9 @@ Passive recon report of an authorised domain   (Tools: whois, dnsutils, theHarve
 
 recon-example.com.md lists the subdomain count plus DMARC and SPF records.
 
+![Lab 32 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-32.png)
+*Lab 32 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-32-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -2309,6 +2821,9 @@ Nmap scan of local nginx and SSH targets   (Tools: nmap, nginx, openssh-server.)
 **Test it**
 
 nmap -sV reports nginx on port 80 and OpenSSH on port 22, and scan-127.xml is written.
+
+![Lab 33 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-33.png)
+*Lab 33 — expected terminal output on the Killercoda playground*
 
 > **Note:** Full step-by-step commands and references are in labs/lab-33-*.md. Reset the Killercoda playground before the next stateful lab.
 
@@ -2380,6 +2895,9 @@ Metasploit exploit of a lab FTP container   (Tools: metasploit-framework, docker
 
 A command session opens and `id` returns uid=0(root) from the target container.
 
+![Lab 34 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-34.png)
+*Lab 34 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-34-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -2438,6 +2956,9 @@ OpenSCAP CIS compliance scan and report   (Tools: openscap-scanner/libopenscap8,
 
 report.html shows pass/fail per control and the score rises after remediation.
 
+![Lab 35 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-35.png)
+*Lab 35 — expected terminal output on the Killercoda playground*
+
 > **Note:** Full step-by-step commands and references are in labs/lab-35-*.md. Reset the Killercoda playground before the next stateful lab.
 
 ---
@@ -2486,6 +3007,9 @@ GoPhish campaign with a MailHog SMTP sink   (Tools: gophish, docker.io, mailhog,
 **Test it**
 
 The campaign dashboard tracks sent/opened/clicked and test emails appear in MailHog.
+
+![Lab 36 — expected terminal output on the Killercoda playground](courseware/assets/labfigs/lab-36.png)
+*Lab 36 — expected terminal output on the Killercoda playground*
 
 > **Note:** Full step-by-step commands and references are in labs/lab-36-*.md. Reset the Killercoda playground before the next stateful lab.
 
