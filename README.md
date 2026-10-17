@@ -3,6 +3,7 @@
 > **Course:** WSQ — CompTIA Certified Security+ Training
 > **Course Code:** TGS-2023039181
 > **Register here:** https://www.tertiarycourses.com.sg/wsq-comptia-certified-security-training.html
+> **Funding:** up to 70% course-fee funding for eligible learners and SMEs. Eligibility and terms apply — see the registration page.
 
 The official courseware and hands-on lab exercises for the WSQ **CompTIA Certified Security+ Training** course delivered by [**Tertiary Infotech Academy Pte Ltd**](https://www.tertiarycourses.com.sg/).
 
