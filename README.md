@@ -160,7 +160,7 @@ All 52 labs run in the free [Killercoda Ubuntu Playground](https://killercoda.co
 | Exam objectives | [CompTIA SY0-701 exam objectives (PDF)](CompTIA-Security-Plus-SY0-701-Exam-Objectives.pdf) |
 | Labs | [labs/](labs/) — 52 lab folders, [index](labs/README.md), [tools](labs/tools.md) |
 
-The deck, Lesson Plan, Learner Guide and labs are generated from a single source, so they always agree. The labs and topic order are shared with the non-WSQ [C628 CompTIA Security+ Exam Prep](https://github.com/tertiarycourses/C628-CompTIA-SecurityPlus-Exam-Prep) course.
+The deck, Lesson Plan, Learner Guide and labs are generated from a single source, so they always agree.
 
 ## Practise in the browser
 
