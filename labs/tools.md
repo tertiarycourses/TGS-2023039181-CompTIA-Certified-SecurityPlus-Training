@@ -16,93 +16,107 @@ Killercoda playground (free, no signup): https://killercoda.com/playgrounds/scen
 ### A1. Cryptography & PKI
 | Tool | Install | Purpose | Lab |
 |------|---------|---------|-----|
-| `openssl` | pre-installed | Hash, encrypt, CA, TLS test | 3, 4, 5, 18, 19 |
-| `gnupg` | `apt install gnupg` | OpenPGP encryption / signing | 4 |
-| `cryptsetup` | `apt install cryptsetup` | LUKS full-disk encryption | 18 |
+| `openssl` | pre-installed | Hash, encrypt, CA, TLS test | 5, 6, 7, 24, 25 |
+| `gnupg` | `apt install gnupg` | OpenPGP encryption / signing | 6 |
+| `cryptsetup` | `apt install cryptsetup` | LUKS full-disk encryption | 24 |
 
 ### A2. Identity, Access & Auth
 | Tool | Install | Purpose | Lab |
 |------|---------|---------|-----|
-| `sudo`, PAM | pre-installed | RBAC, time/lockout policies | 2, 22 |
-| `libpam-google-authenticator` | `apt install libpam-google-authenticator` | TOTP MFA for SSH/login | 23 |
-| `oathtool` | `apt install oathtool` | Generate TOTP from CLI | 23 |
-| `qrencode` | `apt install qrencode` | Render TOTP QR codes | 23 |
-| `openssh-server` | pre-installed | SSH + key auth | 2, 21, 23 |
-| `fail2ban` | `apt install fail2ban` | Auto-ban brute-force IPs | 21 |
+| `sudo`, PAM | pre-installed | RBAC, time/lockout policies | 2, 38 |
+| `libpam-google-authenticator` | `apt install libpam-google-authenticator` | TOTP MFA for SSH/login | 39 |
+| `oathtool` | `apt install oathtool` | Generate TOTP from CLI | 39 |
+| `qrencode` | `apt install qrencode` | Render TOTP QR codes | 39 |
+| `openssh-server` | pre-installed | SSH + key auth | 2, 35, 39 |
+| `fail2ban` | `apt install fail2ban` | Auto-ban brute-force IPs | 35 |
 
 ### A3. Network Security
 | Tool | Install | Purpose | Lab |
 |------|---------|---------|-----|
-| `iptables` / `nftables` | pre-installed / `apt install nftables` | Stateful firewall | 1, 11, 14, 15, 30 |
-| `ufw` | `apt install ufw` | Friendly firewall front-end | 15 |
-| `wireguard`, `wireguard-tools` | `apt install wireguard wireguard-tools` | Modern VPN | 17 |
-| `iproute2` (`ip netns`) | pre-installed | Network namespaces / zoning | 14, 17 |
-| `nginx` | `apt install nginx` | TLS / WAF target | 11, 15, 16, 19, 33 |
-| `apache2` | `apt install apache2` | Web target for scanners | 12 |
+| `iptables` / `nftables` | pre-installed / `apt install nftables` | Stateful firewall | 1, 15, 19, 20, 40 |
+| `ufw` | `apt install ufw` | Friendly firewall front-end | 20 |
+| `wireguard`, `wireguard-tools` | `apt install wireguard wireguard-tools` | Modern VPN | 22 |
+| `iproute2` (`ip netns`) | pre-installed | Network namespaces / zoning | 19, 22 |
+| `nginx` | `apt install nginx` | TLS / WAF target | 15, 20, 21, 25, 50 |
+| `apache2` | `apt install apache2` | Web target for scanners | 31 |
 
 ### A4. Detection & Monitoring
 | Tool | Install | Purpose | Lab |
 |------|---------|---------|-----|
 | `auditd` | `apt install auditd` | Linux audit framework | 1 |
-| `suricata` + `suricata-update` | `apt install suricata` | Open-source IDS/IPS | 25 |
-| `osquery` | apt repo | EDR via SQL queries | 26 |
-| `aide` | `apt install aide` | File integrity monitoring | 27 |
-| `inotify-tools` | `apt install inotify-tools` | Filesystem event watcher | 30 |
-| Wazuh | install script | Open-source SIEM (manager + agent) | 24 |
+| `suricata` + `suricata-update` | `apt install suricata` | Open-source IDS/IPS | 36 |
+| `osquery` | apt repo | EDR via SQL queries | 37 |
+| `aide` | `apt install aide` | File integrity monitoring | 34 |
+| `inotify-tools` | `apt install inotify-tools` | Filesystem event watcher | 40 |
+| Wazuh | install script | Open-source SIEM (manager + agent) | 33 |
 
 ### A5. Vulnerability & Pentest
 | Tool | Install | Purpose | Lab |
 |------|---------|---------|-----|
-| `nmap` | `apt install nmap` | Port scanner / NSE | 33 |
-| `nikto` | `apt install nikto` | Web vulnerability scanner | 12 |
-| `nuclei` | binary release | Template-based vuln scanner | 12 |
-| `trivy` | apt repo | Container / OS / secret scanner | 28 |
-| `lynis` | `apt install lynis` | System hardening audit | 13 |
-| `metasploit-framework` | apt repo | Exploitation framework | 34 |
-| `hydra` | `apt install hydra` | Network login brute-force | 7 |
-| `john` (the Ripper) | `apt install john` | Offline hash cracker | 7 |
-| `sqlmap` | `apt install sqlmap` | Automated SQL injection | 9 |
-| `hping3` | `apt install hping3` | Custom packet crafting / SYN flood | 11 |
-| `theharvester` | `pip install theHarvester` | Email/host OSINT | 32 |
-| `subfinder` | `go install ...` | Passive subdomain discovery | 32 |
-| `whois`, `dnsutils` | `apt install whois dnsutils` | WHOIS / DNS lookups | 6, 32 |
+| `nmap` | `apt install nmap` | Port scanner / NSE | 50 |
+| `nikto` | `apt install nikto` | Web vulnerability scanner | 31 |
+| `nuclei` | binary release | Template-based vuln scanner | 31 |
+| `trivy` | apt repo | Container / OS / secret scanner | 32 |
+| `lynis` | `apt install lynis` | System hardening audit | 16 |
+| `metasploit-framework` | apt repo | Exploitation framework | 51 |
+| `hydra` | `apt install hydra` | Network login brute-force | 13 |
+| `john` (the Ripper) | `apt install john` | Offline hash cracker | 13 |
+| `sqlmap` | `apt install sqlmap` | Automated SQL injection | 10 |
+| `hping3` | `apt install hping3` | Custom packet crafting / SYN flood | 15 |
+| `theharvester` | `pip install theHarvester` | Email/host OSINT | 49 |
+| `subfinder` | `go install ...` | Passive subdomain discovery | 49 |
+| `whois`, `dnsutils` | `apt install whois dnsutils` | WHOIS / DNS lookups | 9, 49 |
 
 ### A6. Static Analysis & Forensics
 | Tool | Install | Purpose | Lab |
 |------|---------|---------|-----|
-| `yara` | `apt install yara` | Malware pattern matching | 8 |
-| `binutils` (`strings`) | pre-installed | Extract printable strings | 8 |
-| `file`, `coreutils` | pre-installed | File-type ID, hashing | 2, 8, 29 |
-| `sleuthkit` (optional) | `apt install sleuthkit` | Disk forensics | 29 |
+| `yara` | `apt install yara` | Malware pattern matching | 14 |
+| `binutils` (`strings`) | pre-installed | Extract printable strings | 14 |
+| `file`, `coreutils` | pre-installed | File-type ID, hashing | 2, 14, 41 |
+| `sleuthkit` (optional) | `apt install sleuthkit` | Disk forensics | 41 |
 
 ### A7. Compliance & Governance
 | Tool | Install | Purpose | Lab |
 |------|---------|---------|-----|
-| `libopenscap8` | `apt install libopenscap8` | SCAP scanner engine | 35 |
-| `ssg-debian`, `ssg-debderived` | `apt install ssg-debian ssg-debderived` | CIS / STIG XCCDF content | 35 |
-| `python3` | pre-installed | ALE/SLE math, JSON wrangling | 31 |
+| `libopenscap8` | `apt install libopenscap8` | SCAP scanner engine | 48 |
+| `ssg-debian`, `ssg-debderived` | `apt install ssg-debian ssg-debderived` | CIS / STIG XCCDF content | 48 |
+| `python3` | pre-installed | ALE/SLE math, JSON wrangling | 46 |
 
 ### A8. Backup & Resilience
 | Tool | Install | Purpose | Lab |
 |------|---------|---------|-----|
-| `restic` | `apt install restic` | Encrypted, deduplicated backup | 20 |
+| `restic` | `apt install restic` | Encrypted, deduplicated backup | 26 |
 
 ### A9. Mail / Phishing Lab
 | Tool | Install | Purpose | Lab |
 |------|---------|---------|-----|
-| `swaks` | `apt install swaks` | SMTP test client | 6 |
-| MailHog | `docker run mailhog/mailhog` | Local SMTP sink (safe testing) | 36 |
-| GoPhish | binary release | Phishing simulation platform | 36 |
+| `swaks` | `apt install swaks` | SMTP test client | 9 |
+| MailHog | `docker run mailhog/mailhog` | Local SMTP sink (safe testing) | 52 |
+| GoPhish | binary release | Phishing simulation platform | 52 |
 
 ### A10. Web Lab Targets
 | Tool | Install | Purpose | Lab |
 |------|---------|---------|-----|
-| `php-cli`, `php-sqlite3` | `apt install php-cli php-sqlite3` | Vulnerable web apps | 9, 10 |
-| `sqlite3` | `apt install sqlite3` | Lab database | 9 |
-| `docker.io` | `apt install docker.io` | Run vulnerable / scanner containers | 28, 34, 36 |
-| Metasploitable / DVWA images | `docker pull` | Authorised exploit targets | 34 |
+| `php-cli`, `php-sqlite3` | `apt install php-cli php-sqlite3` | Vulnerable web apps | 10, 11 |
+| `sqlite3` | `apt install sqlite3` | Lab database | 10 |
+| `docker.io` | `apt install docker.io` | Run vulnerable / scanner containers | 32, 51, 52 |
+| Metasploitable / DVWA images | `docker pull` | Authorised exploit targets | 51 |
 
 ---
+
+### A11. Tools added for the v2.0 objective-aligned labs
+| Tool | Install | Purpose | Lab |
+|------|---------|---------|-----|
+| `inotify-tools`, `auditd`, `socat` | `apt install inotify-tools auditd socat` | Honeyfile / honeytoken / honeypot listener alerts | 3 |
+| `etckeeper`, `git` | `apt install etckeeper git` | Version-controlled configuration and backout for change management | 4 |
+| MITRE ATT&CK STIX JSON + `jq` | `curl` from github.com/mitre/cti, `apt install jq` | Profile threat actors and their techniques | 8 |
+| `gcc`, `gdb` | `apt install build-essential gdb` | Buffer-overflow demo and compiler protections (canary, FORTIFY, PIE) | 12 |
+| `grep -P`, `python3` | pre-installed | PII discovery (NRIC/FIN, Luhn-valid card numbers), masking and tokenization | 23 |
+| `bandit` | `python3 -m venv v && v/bin/pip install bandit` | Static application security testing (SAST) of Python code | 29 |
+| `pamtester`, `libpam-pwquality` | `apt install pamtester libpam-pwquality` | Test PAM stacks and enforce password policy | 38, 39 |
+| `tcpdump`, `tshark` | `apt install tcpdump tshark` | Packet capture and protocol analysis | 43 |
+| `journalctl`, `awk` | pre-installed | Log investigation and timeline building | 44 |
+| `syft` | official install script (anchore/syft) | Generate a Software Bill of Materials (SBOM) | 47 |
 
 ## Section B — External / Standalone Free Tools (download or browser)
 
@@ -140,7 +154,7 @@ Killercoda playground (free, no signup): https://killercoda.com/playgrounds/scen
 | Tool | Type | Link |
 |------|------|------|
 | NVD / CVE search | Web | https://nvd.nist.gov |
-| **FIRST CVSS calculator** ⭐ used in Lab 31 | Web | https://www.first.org/cvss/calculator/3.1 |
+| **FIRST CVSS calculator** ⭐ used in Labs 32 and 46 | Web | https://www.first.org/cvss/calculator/3.1 |
 | FIRST CVSS v4 calculator | Web | https://www.first.org/cvss/calculator/4.0 |
 | Ubuntu Security Tracker | Web | https://ubuntu.com/security/cves |
 | GitHub Security Advisories | Web | https://github.com/advisories |
@@ -285,63 +299,60 @@ Killercoda playground (free, no signup): https://killercoda.com/playgrounds/scen
 
 ## Lab → Primary Tool Quick Map
 
-| Lab | Headline tool(s) |
-|-----|------------------|
-| 1  | iptables, auditd |
-| 2  | chmod, sha256sum, sudo |
-| 3  | openssl (sha256, dgst, passwd) |
-| 4  | openssl, gpg |
-| 5  | openssl ca / x509 |
-| 6  | dig, swaks |
-| 7  | hydra, john |
-| 8  | strings, sha256sum, yara, VirusTotal |
-| 9  | sqlmap, php, sqlite3 |
-| 10 | php, curl, CSP |
-| 11 | hping3, iptables limit, syncookies |
-| 12 | nikto, nuclei, securityheaders.com |
-| 13 | lynis, sysctl |
-| 14 | ip netns, iptables FORWARD |
-| 15 | ufw, nftables |
-| 16 | ModSecurity, OWASP CRS |
-| 17 | wireguard |
-| 18 | cryptsetup luks2 |
-| 19 | testssl.sh, openssl s_client |
-| 20 | restic |
-| 21 | sshd_config, fail2ban |
-| 22 | sudoers, pam_time, pam_faillock |
-| 23 | google-authenticator, oathtool |
-| 24 | Wazuh manager |
-| 25 | Suricata, ET Open, eve.json |
-| 26 | osquery, osqueryd |
-| 27 | aide |
-| 28 | trivy |
-| 29 | ps, ss, sha256sum, NIST IR phases |
-| 30 | bash + iptables + tickets |
-| 31 | Python ALE, FIRST CVSS calculator |
-| 32 | whois, subfinder, theHarvester, crt.sh |
-| 33 | nmap (-sS, -sV, NSE) |
-| 34 | metasploit-framework, docker |
-| 35 | OpenSCAP, ssg-debian profile |
-| 36 | GoPhish, MailHog |
+| Lab | Objective | Title | Primary tools |
+|-----|-----------|-------|---------------|
+| 1 | 1.1 | Security Controls Categorization | iptables, auditd, ausearch, sshd, sha256sum, column |
+| 2 | 1.2 | CIA Triad and AAA on Linux | chmod, sha256sum, systemd, chpasswd, openssl passwd, ssh-keygen, sudo, journalctl |
+| 3 | 1.2 | Deception: Honeypots, Honeyfiles and Honeytokens | python3, netcat, auditd, inotifywait, ip netns, curl |
+| 4 | 1.3 | Change Management with Version-Controlled Config | etckeeper, git, nginx, curl, systemctl |
+| 5 | 1.4 | Hashing, Salting, and Digital Signatures | sha256sum, openssl passwd, openssl kdf, openssl dgst, openssl genpkey, chpasswd |
+| 6 | 1.4 | Symmetric vs. Asymmetric Encryption and Key Exchange | openssl enc, openssl speed, openssl pkeyutl, gnupg, od |
+| 7 | 1.4 | PKI: Build Your Own Certificate Authority | openssl req, openssl ca, openssl verify, openssl ocsp, openssl crl, update-ca-certificates |
+| 8 | 2.1 | Threat Actors & the MITRE ATT&CK Framework | jq, curl |
+| 9 | 2.2 | Phishing Email Analysis (SPF / DKIM / DMARC) | dnsutils, dig, swaks |
+| 10 | 2.3 | SQL Injection (SQLi) | sqlite3, php-cli, php-sqlite3, curl |
+| 11 | 2.3 | Cross-Site Scripting (XSS) | php-cli, curl |
+| 12 | 2.3 | Memory Vulnerabilities & Exploit Mitigations | gcc, gdb |
+| 13 | 2.4 | Password Attacks: Spraying & Brute Force | hydra, john, openssh-server |
+| 14 | 2.4 | Malware Static Analysis & Linux IOC Hunting | file, binutils, yara, procps, net-tools |
+| 15 | 2.4 | DoS Simulation and Detection | hping3, nginx, iptables |
+| 16 | 2.5 | Linux Hardening Baseline with Lynis | lynis, unattended-upgrades |
+| 17 | 3.1 | Cloud Shared Responsibility and IAM Least Privilege | jq, python3, awk, column (bsdextrautils) |
+| 18 | 3.1 | Container Security with Docker | docker.io, capsh (libcap2-bin), trivy |
+| 19 | 3.2 | Network Segmentation and Security Zones | ip netns, veth, iptables, netcat, curl, python3 |
+| 20 | 3.2 | Stateful Firewall with UFW and nftables | ufw, nftables, iptables, netcat, curl, ip netns |
+| 21 | 3.2 | Web Application Firewall with ModSecurity and the OWASP CRS | apache2, libapache2-mod-security2, modsecurity-crs, curl |
+| 22 | 3.2 | Site-to-Site VPN with WireGuard | wireguard-tools, ip netns, tcpdump, netcat |
+| 23 | 3.3 | Data Classification and Data Loss Prevention | python3 (re, hmac, secrets), openssl, chmod/chown, useradd |
+| 24 | 3.3 | Data at Rest: LUKS2 Disk Encryption | cryptsetup, losetup, mkfs.ext4, grep |
+| 25 | 3.3 | Data in Transit: TLS Hardening and Cipher Audit | nginx, openssl s_client, testssl.sh, curl |
+| 26 | 3.4 | Backup and Recovery with restic | restic, rsync, cron, python3 |
+| 27 | 3.4 | Storage Resilience with Software RAID (mdadm) | mdadm, losetup, mkfs.ext4, sha256sum |
+| 28 | 4.1 | Mobile and Endpoint Hardening Baseline | libpam-pwquality, dconf-cli, cryptsetup, jq |
+| 29 | 4.1 | Application Security: Validation, SAST and Code Signing | bandit (venv), gnupg, systemd-run, jq |
+| 30 | 4.2 | Asset Inventory, Media Sanitisation and Disposal | util-linux, coreutils, shred, cryptsetup, jq |
+| 31 | 4.3 | Vulnerability Scanning, Confirmation and Rescan | apache2, nmap, nikto, curl |
+| 32 | 4.3 | Vulnerability Management Pipeline with Trivy | trivy, curl, jq |
+| 33 | 4.4 | SIEM Alerting and Monitoring with Wazuh | wazuh-manager, wazuh-indexer, curl, jq |
+| 34 | 4.4 | File Integrity Monitoring with AIDE | aide, cron, logger, journalctl |
+| 35 | 4.5 | Secure Remote Access: SSH Hardening and Fail2ban | openssh-server, fail2ban, nftables, ssh-keygen |
+| 36 | 4.5 | Network IDS with Suricata | suricata, suricata-update, jq, nmap |
+| 37 | 4.5 | Endpoint Detection and Response with osquery | osquery, osqueryd, jq, netcat-openbsd |
+| 38 | 4.6 | Identity & Access Management with PAM and sudo | sudo, acl, libpam-pwquality, pam_faillock, pam_time, pamtester, chage |
+| 39 | 4.6 | Multifactor Authentication with TOTP | libpam-google-authenticator, oathtool, qrencode, pamtester, openssh-server |
+| 40 | 4.7 | Automation & Orchestration (Mini-SOAR) | jq, shellcheck, iptables, curl, python3, systemd, logger |
+| 41 | 4.8 | Incident Response: Live Triage | cron, procps, iproute2, psmisc, lsof, sha256sum, iptables |
+| 42 | 4.8 | Digital Forensics: Acquisition & Chain of Custody | dcfldd, dd, sleuthkit, foremost, losetup, blockdev, sha256sum |
+| 43 | 4.9 | Packet Capture & Traffic Analysis | tcpdump, tshark, dnsutils, curl, python3 |
+| 44 | 4.9 | Log Investigation: Building a Timeline | grep, awk, sed, sort, uniq, journalctl, logger |
+| 45 | 5.1 | Governance: Policies, Standards, Procedures | bash, libpam-pwquality, visudo, /etc/issue |
+| 46 | 5.2 | Risk Register, CVSS Scoring, and Quantitative Risk | python3, FIRST.org CVSS calculator, column |
+| 47 | 5.3 | Supply Chain Security: SBOM and Vendor Trust | syft, sha256sum, gpg, curl |
+| 48 | 5.4 | Compliance Audit with OpenSCAP | openscap-scanner/libopenscap8, ssg-base, ssg-debderived |
+| 49 | 5.5 | Passive Reconnaissance / OSINT | whois, dnsutils, theHarvester, subfinder, jq |
+| 50 | 5.5 | Active Reconnaissance with Nmap | nmap, nginx, openssh-server |
+| 51 | 5.5 | Penetration Testing in an Authorised Lab | metasploit-framework, docker.io, nmap |
+| 52 | 5.6 | Security Awareness: Phishing Simulation | gophish, docker.io, mailhog, curl, unzip |
 
 ---
-
-All tools above are free of charge. The Killercoda VM is also free and disposable, so you can run every lab without spending or installing anything on your own machine — except a couple of optional GUI tools in Section B.
-
----
-
-## Section C — Browser ed-tools (interactive, no install)
-
-These interactive tools run entirely in the browser and are used throughout the labs to visualise and practise concepts.
-
-| Tool | URL | Purpose | Labs |
-|------|-----|---------|------|
-| Cybersecurity Simulator | https://alfredang.github.io/cybersecuritysimulator/ | Attack/defence scenario simulator | 1, 6 |
-| Ethical Hacking Toolkit | https://alfredang.github.io/ethnicalhacking/ | Guided recon, scanning & exploitation | 32–34 |
-| FauxBank Pentest Target | https://pentest-fauxbank.vercel.app/ | Deliberately vulnerable bank (SQLi/XSS) | 9, 10 |
-| Cryptography Toolkit | https://alfredang.github.io/cryptography-toolkit/ | Hashing, encryption & signatures playground | 3, 4, 5 |
-| IP Calculator | https://alfredang.github.io/ipcalculator/ | Subnet / CIDR planning | 14 |
-| PCAP Analyzer | https://alfredang.github.io/pcapanalyzer/ | Dissect packet captures in the browser | 11, 25, 40 |
-| Regex Generator | https://alfredang.github.io/regexgenerator/ | Build regex for SIEM/log parsing | 21, 24 |
-
-> Only test systems you are authorised to test. FauxBank and the course labs are your legal practice targets.
+*TGS-2023039181 — CompTIA Security+ (SY0-701) · Tertiary Infotech Academy Pte Ltd*

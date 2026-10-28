@@ -1,12 +1,23 @@
-# Lab 1 — Security Controls Categorization — Completion Checklist
+# Lab 01 — Security Controls Categorization — Completion Checklist
 
-Tick each item once you have verified it in the lab.
+Tick each item once you have verified it in the playground.
 
-- [ ] Completed **Step 1 — Build a categorization matrix**
-- [ ] Completed **Step 2 — Implement a technical preventive control**
-- [ ] Completed **Step 3 — Add a detective control on top**
-- [ ] Completed **Step 4 — Identify the compensating control**
+- [ ] Step 1 — Install the tools
+- [ ] Step 2 — Build the control matrix
+- [ ] Step 3 — Add a technical preventive control
+- [ ] Step 4 — Add a deterrent and directive control
+- [ ] Step 5 — Add a technical detective control
+- [ ] Step 6 — Add a corrective control
+- [ ] Step 7 — Add a compensating control
+- [ ] Step 8 — Map what you built back to the matrix
 
-## Verification (lab passes when true)
+## Verification
 
-- [ ] The lab's stated outcome is achieved.
+- [ ] Confirm all five controls are live.
+
+## Reflection
+
+- [ ] A company cannot patch a legacy system, so it isolates it and logs every connection. Which control type is that, and why is it not "corrective"?
+
+---
+*TGS-2023039181 — CompTIA Security+ Certification (SY0-701) · Tertiary Infotech Academy Pte Ltd*
